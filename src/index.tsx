@@ -4,13 +4,18 @@ import './index.css';
 import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 
+const tasks1 = [
+    {id: 1, title: 'HTML&CSS', isDone: true},
+    {id: 2, title: 'JS', isDone: true},
+    {id: 3, title: 'React', isDone: false},
+    {id: 4, title: 'Redux', isDone: false},
+];
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <App tasks={tasks1}/>,
 );
 
 // If you want to start measuring performance in your app, pass a function
