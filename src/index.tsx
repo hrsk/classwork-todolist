@@ -4,7 +4,13 @@ import './index.css';
 import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 
-const tasks1 = [
+export type TaskType = {
+    id: number
+    title: string
+    isDone: boolean
+}
+
+const tasks1: Array<TaskType> = [
     {id: 1, title: 'HTML&CSS', isDone: true},
     {id: 2, title: 'JS', isDone: true},
     {id: 3, title: 'React', isDone: false},

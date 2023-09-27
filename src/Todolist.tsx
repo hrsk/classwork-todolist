@@ -1,6 +1,11 @@
 import React from "react";
+import {TaskType} from "./index";
 
-export const Todolist = (props: any) => {
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+}
+export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.title}</h3>
