@@ -1,5 +1,5 @@
 import React from "react";
-import {TaskType} from "./index";
+import {TaskType, TodolistType} from "./index";
 
 type PropsType = {
     title: string

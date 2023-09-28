@@ -10,18 +10,29 @@ export type TaskType = {
     isDone: boolean
 }
 
-const tasks1: Array<TaskType> = [
+export type TodolistType = {
+    id: number
+    title: string
+}
+
+const tasks: Array<TaskType> = [
     {id: 1, title: 'HTML&CSS', isDone: true},
     {id: 2, title: 'JS', isDone: true},
     {id: 3, title: 'React', isDone: false},
     {id: 4, title: 'Redux', isDone: false},
 ];
 
+const lists: Array<TodolistType> = [
+    {id: 1, title: 'What to learn'},
+    {id: 2, title: 'What to buy'},
+
+];
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <App tasks={tasks1}/>,
+    <App tasks={tasks} lists={lists}/>,
 );
 
 // If you want to start measuring performance in your app, pass a function
