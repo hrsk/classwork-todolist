@@ -5,13 +5,17 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: number) => void
+    changeTaskStatus: (taskId: number, isDone: boolean) => void
 }
 export const Todolist = (props: PropsType) => {
 
     const removeTask = (taskId: number) => {
         props.removeTask(taskId)
     }
-    
+    const changeTaskStatus = (taskId: number, isDone: boolean) => {
+        props.changeTaskStatus(taskId, isDone)
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
@@ -25,7 +29,10 @@ export const Todolist = (props: PropsType) => {
                             return (
                                 <li key={task.id}>
                                     <button onClick={() => removeTask(task.id)}>x</button>
-                                    <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
+                                    <input type="checkbox"
+                                           checked={task.isDone}
+                                           onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
+                                    <span>{task.title}</span>
                                 </li>
                             )
                         }

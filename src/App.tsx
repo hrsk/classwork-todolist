@@ -21,6 +21,11 @@ export const App = () => {
     const removeTask = (taskId: number) => {
         setTasks(tasks.filter(task => task.id !== taskId))
     }
+
+    const changeTaskStatus = (taskId: number, isDone: boolean) => {
+        setTasks(tasks.map(task => task.id === taskId ? {...task, isDone} : task))
+    }
+
     return (
         <div className="App">
             {lists.map(todolist =>
@@ -28,6 +33,7 @@ export const App = () => {
                           title={todolist.title}
                           tasks={tasks}
                           removeTask={removeTask}
+                          changeTaskStatus={changeTaskStatus}
                 />
             )}
         </div>
