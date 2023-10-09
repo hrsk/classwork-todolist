@@ -3,7 +3,7 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {TaskType, TodolistType} from "./index";
 
-
+export type FilterValuesType = 'All' | 'Active' | 'Completed'
 export const App = () => {
 
     const [tasks, setTasks] = useState<Array<TaskType>>([
@@ -12,6 +12,8 @@ export const App = () => {
         {id: 3, title: 'React', isDone: false},
         {id: 4, title: 'Redux', isDone: false},
     ]);
+
+    const [filter, setFilter] = useState<FilterValuesType>('All');
 
     const lists: Array<TodolistType> = [
         {id: 1, title: 'What to learn'},
@@ -26,6 +28,10 @@ export const App = () => {
         setTasks(tasks.map(task => task.id === taskId ? {...task, isDone} : task))
     }
 
+    const changeTaskFilter = (filter: FilterValuesType) => {
+        setFilter(filter)
+    }
+
     return (
         <div className="App">
             {lists.map(todolist =>
@@ -34,6 +40,8 @@ export const App = () => {
                           tasks={tasks}
                           removeTask={removeTask}
                           changeTaskStatus={changeTaskStatus}
+                          filter={filter}
+                          changeFilter={changeTaskFilter}
                 />
             )}
         </div>
