@@ -5,7 +5,7 @@ import {App, FilterValuesType} from './App';
 import reportWebVitals from './reportWebVitals';
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }

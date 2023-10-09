@@ -1,26 +1,37 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import {TaskType} from "./index";
 import {FilterValuesType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: number) => void
-    changeTaskStatus: (taskId: number, isDone: boolean) => void
+    removeTask: (taskId: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean) => void
     filter: FilterValuesType
     changeFilter: (filter: FilterValuesType) => void
+    addTask: (value: string) => void
 }
 export const Todolist = (props: PropsType) => {
 
-    const removeTask = (taskId: number) => {
+    const [value, setValue] = useState<string>('');
+
+    const removeTask = (taskId: string) => {
         props.removeTask(taskId)
     }
-    const changeTaskStatus = (taskId: number, isDone: boolean) => {
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
         props.changeTaskStatus(taskId, isDone)
     }
 
     const changeTaskFilter = (filter: FilterValuesType) => {
         props.changeFilter(filter)
+    }
+
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.currentTarget.value)
+    }
+
+    const addTask = () => {
+        props.addTask(value)
     }
 
     let filteredTasks = props.tasks
@@ -36,8 +47,8 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input value={value} onChange={onChangeHandler}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul style={{listStyle: 'none'}}>
                 {
