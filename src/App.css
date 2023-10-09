@@ -6,3 +6,11 @@
 .App > div {
   margin-right: 50px;
 }
+
+.active {
+  color: cadetblue;
+}
+
+.is-done {
+  opacity: 0.5;
+}

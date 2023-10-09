@@ -31,8 +31,10 @@ export const Todolist = (props: PropsType) => {
     }
 
     const addTask = () => {
-        props.addTask(value)
-        setValue('')
+        if (value.trim() !== null) {
+            props.addTask(value)
+            setValue('')
+        }
     }
 
     const onKeyPressHandler = (event: KeyboardEvent) => {
@@ -66,7 +68,7 @@ export const Todolist = (props: PropsType) => {
                                     <input type="checkbox"
                                            checked={task.isDone}
                                            onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
-                                    <span>{task.title}</span>
+                                    <span className={task.isDone ? 'is-done' : ''}>{task.title}</span>
                                 </li>
                             )
                         }
@@ -74,9 +76,15 @@ export const Todolist = (props: PropsType) => {
                 }
             </ul>
             <div>
-                <button onClick={() => changeTaskFilter('All')}>All</button>
-                <button onClick={() => changeTaskFilter('Active')}>Active</button>
-                <button onClick={() => changeTaskFilter('Completed')}>Completed</button>
+                <button className={props.filter === 'All' ? 'active' : ''}
+                        onClick={() => changeTaskFilter('All')}>All
+                </button>
+                <button className={props.filter === 'Active' ? 'active' : ''}
+                        onClick={() => changeTaskFilter('Active')}>Active
+                </button>
+                <button className={props.filter === 'Completed' ? 'active' : ''}
+                        onClick={() => changeTaskFilter('Completed')}>Completed
+                </button>
             </div>
         </div>
     )
