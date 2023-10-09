@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {TaskType} from "./index";
 import {FilterValuesType} from "./App";
 
@@ -32,6 +32,13 @@ export const Todolist = (props: PropsType) => {
 
     const addTask = () => {
         props.addTask(value)
+        setValue('')
+    }
+
+    const onKeyPressHandler = (event: KeyboardEvent) => {
+        if (event.key === 'Enter' && event.metaKey) {
+            addTask()
+        }
     }
 
     let filteredTasks = props.tasks
@@ -47,7 +54,7 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input value={value} onChange={onChangeHandler}/>
+                <input value={value} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul style={{listStyle: 'none'}}>
