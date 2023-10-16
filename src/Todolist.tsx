@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
-import {TaskType} from "./index";
-import {FilterValuesType} from "./App";
+import {FilterValuesType, TaskType} from "./index";
 
 type PropsType = {
     title: string

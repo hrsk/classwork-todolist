@@ -9,10 +9,12 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
+export type FilterValuesType = 'All' | 'Active' | 'Completed'
 
 export type TodolistType = {
-    id: number
+    id: string
     title: string
+    filter: FilterValuesType
 }
 
 const root = ReactDOM.createRoot(
