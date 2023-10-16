@@ -30,19 +30,27 @@ export const App = () => {
     ]);
 
     const removeTask = (todolistId: string, taskId: string) => {
-        // setTasks(tasks.filter(task => task.id !== taskId))
+        setTasks({
+            ...tasks,
+            [todolistId]: tasks[todolistId].filter(task => task.id !== taskId)
+        })
     }
 
     const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
-        // setTasks(tasks.map(task => task.id === taskId ? {...task, isDone} : task))
+        setTasks({
+            ...tasks,
+            [todolistId]: tasks[todolistId].map(task => task.id === taskId ? {...task, isDone} : task)
+        })
     }
 
     const changeTaskFilter = (todolistId: string, filter: FilterValuesType) => {
-        // setFilter(filter)
+        setLists(lists.map(td => td.id === todolistId ? {...td, filter} : td))
     }
 
-    const addTask = (value: string) => {
-        // setTasks([...tasks, {id: v1(), title: value, isDone: false}])
+    const addTask = (todolistId: string, value: string) => {
+        setTasks({
+            ...tasks, [todolistId]: [{id: v1(), title: value, isDone: false}, ...tasks[todolistId]]
+        })
     }
 
     return (
