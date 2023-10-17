@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterValuesType, TaskType} from "./index";
+import {InputWithButton} from "./input_with_button/InputWithButton";
 
 type PropsType = {
     todolistId: string
@@ -10,6 +11,7 @@ type PropsType = {
     filter: FilterValuesType
     changeFilter: (todolistId: string, filter: FilterValuesType) => void
     addTask: (todolistId: string, value: string) => void
+    addTodolist: (value: string) => void
 }
 export const Todolist = (props: PropsType) => {
 

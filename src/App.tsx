@@ -3,6 +3,7 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {FilterValuesType, TodolistType} from "./index";
 import {v1} from 'uuid';
+import {InputWithButton} from "./input_with_button/InputWithButton";
 
 export const App = () => {
 
@@ -29,6 +30,8 @@ export const App = () => {
         {id: todolistID2, title: 'What to buy', filter: 'All'},
     ]);
 
+    const [value, setValue] = useState<string>('');
+
     const removeTask = (todolistId: string, taskId: string) => {
         setTasks({
             ...tasks,
@@ -53,8 +56,26 @@ export const App = () => {
         })
     }
 
+    const addTodolist = (value: string) => {
+        const todolistId = v1();
+        setLists([...lists, {id: todolistId, title: value, filter: 'All'}])
+        setTasks({...tasks, [todolistId]: []})
+    }
+
+    const addTodolistCallback = () => {
+        addTodolist(value)
+        setValue('')
+    }
+
     return (
         <div className="App">
+            <div>
+                <InputWithButton value={value}
+                                 setValue={setValue}
+                                 callbackButtonHandler={addTodolistCallback}
+                                 name={'+'}
+                />
+            </div>
             {
                 lists.map(todolist => {
 
@@ -70,6 +91,7 @@ export const App = () => {
                                       filter={todolist.filter}
                                       changeFilter={changeTaskFilter}
                                       addTask={addTask}
+                                      addTodolist={addTodolist}
                             />
                         )
                     }
