@@ -16,6 +16,9 @@ export type TodolistType = {
     title: string
     filter: FilterValuesType
 }
+export type TasksType = {
+    [key: string]: TaskType[]
+}
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

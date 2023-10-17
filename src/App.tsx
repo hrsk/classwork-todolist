@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
-import {FilterValuesType, TodolistType} from "./index";
+import {FilterValuesType, TasksType, TodolistType} from "./index";
 import {v1} from 'uuid';
 import {InputWithButton} from "./input_with_button/InputWithButton";
 
@@ -10,7 +10,7 @@ export const App = () => {
     const todolistID1 = v1();
     const todolistID2 = v1();
 
-    const [tasks, setTasks] = useState({
+    const [tasks, setTasks] = useState<TasksType>({
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -67,6 +67,12 @@ export const App = () => {
         setValue('')
     }
 
+    const removeTodolist = (todolistId: string) => {
+        setLists(lists.filter(td => td.id !== todolistId))
+        delete tasks[todolistId]
+        setTasks(tasks)
+    }
+
     return (
         <div className="App">
             <InputWithButton value={value}
@@ -90,6 +96,7 @@ export const App = () => {
                                       changeFilter={changeTaskFilter}
                                       addTask={addTask}
                                       addTodolist={addTodolist}
+                                      removeTodolist={removeTodolist}
                             />
                         )
                     }
