@@ -69,13 +69,11 @@ export const App = () => {
 
     return (
         <div className="App">
-            <div>
-                <InputWithButton value={value}
-                                 setValue={setValue}
-                                 callbackButtonHandler={addTodolistCallback}
-                                 name={'+'}
-                />
-            </div>
+            <InputWithButton value={value}
+                             setValue={setValue}
+                             callbackButtonHandler={addTodolistCallback}
+                             name={'+'}
+            />
             {
                 lists.map(todolist => {
 

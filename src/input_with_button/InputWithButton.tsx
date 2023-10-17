@@ -10,9 +10,14 @@ type PropsType = {
 }
 export const InputWithButton = (props: PropsType) => {
     return (
-        <>
-            <Input value={props.value} callback={props.setValue} />
-            <Button name={props.name} callback={props.callbackButtonHandler} />
-        </>
+        <div>
+            <Input value={props.value}
+                   callback={props.setValue}
+                   keyPressCallback={props.callbackButtonHandler}
+            />
+            <Button name={props.name}
+                    callback={props.callbackButtonHandler}
+            />
+        </div>
     );
 };

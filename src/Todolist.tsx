@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import React, {useState} from "react";
 import {FilterValuesType, TaskType} from "./index";
 import {InputWithButton} from "./input_with_button/InputWithButton";
 
@@ -28,20 +28,10 @@ export const Todolist = (props: PropsType) => {
         props.changeFilter(props.todolistId, filter)
     }
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.currentTarget.value)
-    }
-
     const addTask = () => {
         if (value.trim() !== null) {
             props.addTask(props.todolistId, value)
             setValue('')
-        }
-    }
-
-    const onKeyPressHandler = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && event.metaKey) {
-            addTask()
         }
     }
 
@@ -57,10 +47,7 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.title}</h3>
-            <div>
-                <input value={value} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>
-                <button onClick={addTask}>+</button>
-            </div>
+            <InputWithButton value={value} setValue={setValue} callbackButtonHandler={addTask} name={'+'}/>
             <ul style={{listStyle: 'none'}}>
                 {
                     filteredTasks.map(task => {
