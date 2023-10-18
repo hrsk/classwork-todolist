@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {FilterValuesType, TaskType} from "./index";
 import {InputWithButton} from "./input_with_button/InputWithButton";
+import {EditableSpan} from "./editable_span/EditableSpan";
 
 type PropsType = {
     todolistId: string
@@ -13,6 +14,7 @@ type PropsType = {
     addTask: (todolistId: string, value: string) => void
     addTodolist: (value: string) => void
     removeTodolist: (todolistId: string) => void
+    changeTaskTitle: (todolistId: string, taskId: string, value: string) => void
 }
 export const Todolist = (props: PropsType) => {
 
@@ -40,6 +42,10 @@ export const Todolist = (props: PropsType) => {
         props.removeTodolist(props.todolistId)
     }
 
+    const changeTaskTitleCallbackHandler = (taskId: string, value: string) => {
+        props.changeTaskTitle(props.todolistId, taskId, value)
+    }
+
     let filteredTasks = props.tasks
 
     if (props.filter === 'Completed') {
@@ -65,7 +71,9 @@ export const Todolist = (props: PropsType) => {
                                     <input type="checkbox"
                                            checked={task.isDone}
                                            onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
-                                    <span className={task.isDone ? 'is-done' : ''}>{task.title}</span>
+                                    <EditableSpan value={task.title}
+                                                  callback={(value) => changeTaskTitleCallbackHandler(task.id, value)}/>
+                                    {/*<span className={task.isDone ? 'is-done' : ''}>{task.title}</span>*/}
                                 </li>
                             )
                         }
