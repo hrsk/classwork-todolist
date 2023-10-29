@@ -15,6 +15,7 @@ type PropsType = {
     addTodolist: (value: string) => void
     removeTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, value: string) => void
+    changeTodolistTitle: (todolistId: string, value: string) => void
 }
 export const Todolist = (props: PropsType) => {
 
@@ -45,6 +46,9 @@ export const Todolist = (props: PropsType) => {
     const changeTaskTitleCallbackHandler = (taskId: string, value: string) => {
         props.changeTaskTitle(props.todolistId, taskId, value)
     }
+    const changeTodolistTitleCallbackHandler = (value: string) => {
+        props.changeTodolistTitle(props.todolistId, value)
+    }
 
     let filteredTasks = props.tasks
 
@@ -58,7 +62,8 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>
-                {props.title}
+                <EditableSpan value={props.title} callback={changeTodolistTitleCallbackHandler}/>
+                {/*{props.title}*/}
                 <button onClick={removeTodolist}>x</button>
             </h3>
             <InputWithButton value={value} setValue={setValue} callbackButtonHandler={addTask} name={'+'}/>
