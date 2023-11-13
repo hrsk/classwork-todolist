@@ -9,7 +9,7 @@ export const todolistReducer = (state: TodolistType[], action: ActionsType): Tod
             return state.map(td => td.id === action.todolistId ? {...td, title: action.title} : td)
         case 'ADD-TODOLIST':
             return [
-                ...state, {id: v1(), title: action.title, filter: 'All'}
+                ...state, {id: action.todolistId, title: action.title, filter: 'All'}
             ]
         case 'CHANGE-TODOLIST-FILTER':
             return state.map(td => td.id === action.todolistId ? {...td, filter: action.filter} : td)
@@ -18,9 +18,9 @@ export const todolistReducer = (state: TodolistType[], action: ActionsType): Tod
     }
 }
 
-type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
+export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
 type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>
-type AddTodolistActionType = ReturnType<typeof addTodolistAC>
+export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
 type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilterAC>
 
 type ActionsType = RemoveTodolistActionType
@@ -44,6 +44,7 @@ export const addTodolistAC = (title: string) => {
     return {
         type: 'ADD-TODOLIST',
         title,
+        todolistId: v1(),
     } as const
 }
 
