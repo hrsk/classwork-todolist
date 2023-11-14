@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import {App} from './App';
 import reportWebVitals from './reportWebVitals';
-import {AppWithReducer} from "./AppWithReducer";
+// import {AppWithReducer} from "./AppWithReducer";
+import {AppWithRedux} from "./AppWithRedux";
+import {Provider} from "react-redux";
+import {store} from "./state/store";
 
 export type TaskType = {
     id: string
@@ -25,7 +28,9 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <AppWithReducer/>,
+    <Provider store={store}>
+        <AppWithRedux/>
+    </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
