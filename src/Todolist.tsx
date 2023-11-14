@@ -1,12 +1,14 @@
 import React, {useState} from "react";
-import {FilterValuesType, TaskType} from "./index";
+import {FilterValuesType, TasksType, TaskType} from "./index";
 import {InputWithButton} from "./input_with_button/InputWithButton";
 import {EditableSpan} from "./editable_span/EditableSpan";
+import {useSelector} from "react-redux";
+import {AppStateType} from "./state/store";
 
 type PropsType = {
     todolistId: string
     title: string
-    tasks: Array<TaskType>
+    // tasks: Array<TaskType>
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     filter: FilterValuesType
@@ -18,6 +20,8 @@ type PropsType = {
     changeTodolistTitle: (todolistId: string, value: string) => void
 }
 export const Todolist = (props: PropsType) => {
+
+    const tasks = useSelector<AppStateType, TasksType>(state => state.tasksReducer)
 
     const [value, setValue] = useState<string>('');
 
@@ -50,13 +54,13 @@ export const Todolist = (props: PropsType) => {
         props.changeTodolistTitle(props.todolistId, value)
     }
 
-    let filteredTasks = props.tasks
+    let filteredTasks = tasks[props.todolistId];
 
     if (props.filter === 'Completed') {
-        filteredTasks = props.tasks.filter(task => task.isDone)
+        filteredTasks = tasks[props.todolistId].filter(task => task.isDone)
     }
     if (props.filter === 'Active') {
-        filteredTasks = props.tasks.filter(task => !task.isDone)
+        filteredTasks = tasks[props.todolistId].filter(task => !task.isDone)
     }
 
     return (
@@ -78,7 +82,6 @@ export const Todolist = (props: PropsType) => {
                                            onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
                                     <EditableSpan value={task.title}
                                                   callback={(value) => changeTaskTitleCallbackHandler(task.id, value)}/>
-                                    {/*<span className={task.isDone ? 'is-done' : ''}>{task.title}</span>*/}
                                 </li>
                             )
                         }
