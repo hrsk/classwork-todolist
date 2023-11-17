@@ -25,25 +25,12 @@ export const Input = (props: PropsType) => {
     }
 
     return (
-        <>
-            <TextField error={!!props.error}
-                       size={'small'}
-                       value={props.value}
-                       onChange={onChangeHandler}
-                       onKeyDown={onKeyPressHandler}
-                       autoFocus
-                       label={props.error}/>
-
-            {/*<input style={props.error ? {borderColor: 'crimson'} : {color: 'black'}}*/}
-            {/*       value={props.value}*/}
-            {/*       onChange={onChangeHandler}*/}
-            {/*       onKeyDown={onKeyPressHandler}*/}
-            {/*/>*/}
-            {/*{*/}
-            {/*    props.error*/}
-            {/*        ? <div style={{color: 'crimson'}}>{props.error}</div>*/}
-            {/*        : null*/}
-            {/*}*/}
-        </>
+        <TextField error={!!props.error}
+                   size={'small'}
+                   value={props.value}
+                   onChange={onChangeHandler}
+                   onKeyDown={onKeyPressHandler}
+                   autoFocus
+                   label={props.error}/>
     )
 }

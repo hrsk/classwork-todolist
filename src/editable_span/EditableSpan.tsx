@@ -50,21 +50,8 @@ export const EditableSpan = (props: PropsType) => {
                              onKeyDown={onKeyPressHandler}
                              autoFocus
                              label={error}/>
-                // ? <input style={error ? {borderColor: 'crimson'} : {borderColor: 'black'}}
-                //          value={value}
-                //          onChange={onChangeHandler}
-                //          onBlur={viewModeHandler}
-                //          onKeyDown={onKeyPressHandler}
-                //          autoFocus
-                // />
                 : <span onDoubleClick={editModeHandler}>{props.value}</span>
         }
-            {/*{error*/}
-            {/*    ? <span style={{color: 'crimson'}}>*/}
-            {/*        {error}*/}
-            {/*    </span>*/}
-            {/*    : ''*/}
-            {/*}*/}
         </>
     );
 };

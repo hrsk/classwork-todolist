@@ -22,9 +22,5 @@ export const ButtonComponent = (props: PropsType) => {
         <IconButton onClick={onClickHandler} color={'primary'} size={'small'}>
             <AddBox/>
         </IconButton>
-        // <Button style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}
-        //         variant={'outlined'}
-        //         onClick={onClickHandler}>{props.name}</Button>
-        // <button onClick={onClickHandler}>{props.name}</button>
     )
 }
