@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Input} from "./input/Input";
-import {Button} from "./button/Button";
+import {ButtonComponent} from "./button/Button";
 
 type PropsType = {
     value: string
@@ -20,10 +20,10 @@ export const InputWithButton = (props: PropsType) => {
                    callback={props.setValue}
                    keyPressCallback={props.callbackButtonHandler}
             />
-            <Button name={props.name}
-                    value={props.value}
-                    setError={setError}
-                    callback={props.callbackButtonHandler}
+            <ButtonComponent name={props.name}
+                             value={props.value}
+                             setError={setError}
+                             callback={props.callbackButtonHandler}
             />
         </div>
     );

@@ -1,9 +1,12 @@
 import React, {useState} from "react";
-import {FilterValuesType, TasksType, TaskType} from "./index";
+import {FilterValuesType, TasksType} from "./index";
 import {InputWithButton} from "./input_with_button/InputWithButton";
 import {EditableSpan} from "./editable_span/EditableSpan";
 import {useSelector} from "react-redux";
 import {AppStateType} from "./state/store";
+import {Button, Checkbox} from "@mui/material";
+import {Delete} from '@mui/icons-material'
+import {IconButton} from '@mui/material'
 
 type PropsType = {
     todolistId: string
@@ -68,7 +71,10 @@ export const Todolist = (props: PropsType) => {
             <h3>
                 <EditableSpan value={props.title} callback={changeTodolistTitleCallbackHandler}/>
                 {/*{props.title}*/}
-                <button onClick={removeTodolist}>x</button>
+                <IconButton onClick={removeTodolist}>
+                    <Delete/>
+                </IconButton>
+                {/*<button onClick={removeTodolist}>x</button>*/}
             </h3>
             <InputWithButton value={value} setValue={setValue} callbackButtonHandler={addTask} name={'+'}/>
             <ul style={{listStyle: 'none'}}>
@@ -76,10 +82,15 @@ export const Todolist = (props: PropsType) => {
                     filteredTasks.map(task => {
                             return (
                                 <li key={task.id}>
-                                    <button onClick={() => removeTask(task.id)}>x</button>
-                                    <input type="checkbox"
-                                           checked={task.isDone}
-                                           onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
+                                    <IconButton onClick={() => removeTask(task.id)}>
+                                        <Delete/>
+                                    </IconButton>
+                                    {/*<button onClick={() => removeTask(task.id)}>x</button>*/}
+                                    {/*<input type="checkbox"*/}
+                                    {/*       checked={task.isDone}*/}
+                                    {/*       onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>*/}
+                                    <Checkbox checked={task.isDone}
+                                              onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
                                     <EditableSpan value={task.title}
                                                   callback={(value) => changeTaskTitleCallbackHandler(task.id, value)}/>
                                 </li>
@@ -89,16 +100,25 @@ export const Todolist = (props: PropsType) => {
                 }
             </ul>
             <div>
-                <button className={props.filter === 'All' ? 'active' : ''}
-                        onClick={() => changeTaskFilter('All')}>All
-                </button>
-                <button className={props.filter === 'Active' ? 'active' : ''}
-                        onClick={() => changeTaskFilter('Active')}>Active
-                </button>
-                <button className={props.filter === 'Completed' ? 'active' : ''}
-                        onClick={() => changeTaskFilter('Completed')}>Completed
-                </button>
+                <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
+                        onClick={() => changeTaskFilter('All')}>All</Button>
+                <Button variant={props.filter === 'Active' ? 'contained' : 'outlined'}
+                        onClick={() => changeTaskFilter('Active')}>Active</Button>
+                <Button variant={props.filter === 'Completed' ? 'contained' : 'outlined'}
+                        onClick={() => changeTaskFilter('Completed')}>Completed</Button>
             </div>
+            {/*<div>*/}
+            {/*    */}
+            {/*    <button className={props.filter === 'All' ? 'active' : ''}*/}
+            {/*            onClick={() => changeTaskFilter('All')}>All*/}
+            {/*    </button>*/}
+            {/*    <button className={props.filter === 'Active' ? 'active' : ''}*/}
+            {/*            onClick={() => changeTaskFilter('Active')}>Active*/}
+            {/*    </button>*/}
+            {/*    <button className={props.filter === 'Completed' ? 'active' : ''}*/}
+            {/*            onClick={() => changeTaskFilter('Completed')}>Completed*/}
+            {/*    </button>*/}
+            {/*</div>*/}
         </div>
     )
 }

@@ -1,4 +1,5 @@
-import {ChangeEvent, KeyboardEvent} from "react";
+import {TextField} from "@mui/material";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 
 type PropsType = {
     value: string
@@ -25,16 +26,24 @@ export const Input = (props: PropsType) => {
 
     return (
         <>
-            <input style={props.error ? {borderColor: 'crimson'} : {color: 'black'}}
-                   value={props.value}
-                   onChange={onChangeHandler}
-                   onKeyDown={onKeyPressHandler}
-            />
-            {
-                props.error
-                    ? <div style={{color: 'crimson'}}>{props.error}</div>
-                    : null
-            }
+            <TextField error={!!props.error}
+                       size={'small'}
+                       value={props.value}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyPressHandler}
+                       autoFocus
+                       label={props.error}/>
+
+            {/*<input style={props.error ? {borderColor: 'crimson'} : {color: 'black'}}*/}
+            {/*       value={props.value}*/}
+            {/*       onChange={onChangeHandler}*/}
+            {/*       onKeyDown={onKeyPressHandler}*/}
+            {/*/>*/}
+            {/*{*/}
+            {/*    props.error*/}
+            {/*        ? <div style={{color: 'crimson'}}>{props.error}</div>*/}
+            {/*        : null*/}
+            {/*}*/}
         </>
     )
 }

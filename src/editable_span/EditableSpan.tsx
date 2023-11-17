@@ -1,3 +1,4 @@
+import {TextField} from '@mui/material';
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 
 type PropsType = {
@@ -41,21 +42,29 @@ export const EditableSpan = (props: PropsType) => {
     return (
         <> {
             edit
-                ? <input style={error ? {borderColor: 'crimson'} : {borderColor: 'black'}}
-                         value={value}
-                         onChange={onChangeHandler}
-                         onBlur={viewModeHandler}
-                         onKeyDown={onKeyPressHandler}
-                         autoFocus
-                />
+                ? <TextField error={!!error}
+                             size={'small'}
+                             value={value}
+                             onChange={onChangeHandler}
+                             onBlur={viewModeHandler}
+                             onKeyDown={onKeyPressHandler}
+                             autoFocus
+                             label={error}/>
+                // ? <input style={error ? {borderColor: 'crimson'} : {borderColor: 'black'}}
+                //          value={value}
+                //          onChange={onChangeHandler}
+                //          onBlur={viewModeHandler}
+                //          onKeyDown={onKeyPressHandler}
+                //          autoFocus
+                // />
                 : <span onDoubleClick={editModeHandler}>{props.value}</span>
         }
-            {error
-                ? <div style={{color: 'crimson'}}>
-                    {error}
-                </div>
-                : ''
-            }
+            {/*{error*/}
+            {/*    ? <span style={{color: 'crimson'}}>*/}
+            {/*        {error}*/}
+            {/*    </span>*/}
+            {/*    : ''*/}
+            {/*}*/}
         </>
     );
 };
