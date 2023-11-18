@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {Input} from "./input/Input";
 import {ButtonComponent} from "./button/Button";
 
@@ -8,7 +8,8 @@ type PropsType = {
     callbackButtonHandler: () => void
     name: string
 }
-export const InputWithButton = (props: PropsType) => {
+export const InputWithButton = memo((props: PropsType) => {
+    console.log('InputWithButton is called')
 
     const [error, setError] = useState('')
 
@@ -27,4 +28,4 @@ export const InputWithButton = (props: PropsType) => {
             />
         </div>
     );
-};
+});

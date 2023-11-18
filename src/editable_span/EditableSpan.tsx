@@ -1,11 +1,11 @@
 import {TextField} from '@mui/material';
-import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
+import React, {ChangeEvent, useState, KeyboardEvent, memo} from 'react';
 
 type PropsType = {
     value: string
     callback: (value: string) => void
 }
-export const EditableSpan = (props: PropsType) => {
+export const EditableSpan = memo((props: PropsType) => {
 
     const [edit, setEdit] = useState(false);
     const [value, setValue] = useState(props.value);
@@ -54,4 +54,4 @@ export const EditableSpan = (props: PropsType) => {
         }
         </>
     );
-};
+});

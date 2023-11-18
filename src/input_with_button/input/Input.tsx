@@ -1,5 +1,5 @@
 import {TextField} from "@mui/material";
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent, memo, useCallback} from "react";
 
 type PropsType = {
     value: string
@@ -8,21 +8,24 @@ type PropsType = {
     callback: (value: string) => void
     keyPressCallback: () => void
 }
-export const Input = (props: PropsType) => {
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        props.callback(event.currentTarget.value)
-    }
+export const Input = memo((props: PropsType) => {
 
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        props.callback(event.currentTarget.value)
+    },[props.callback])
+
+    const onKeyPressHandler = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && event.metaKey) {
             if (props.value.trim() !== '') {
                 props.keyPressCallback();
-                props.setError('')
+                if (props.error !== null) {
+                    props.setError('')
+                }
             } else {
                 props.setError('Invalid input value!')
             }
         }
-    }
+    }, [props.value, props.keyPressCallback, props.setError])
 
     return (
         <TextField error={!!props.error}
@@ -33,4 +36,4 @@ export const Input = (props: PropsType) => {
                    autoFocus
                    label={props.error}/>
     )
-}
+})
