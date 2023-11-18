@@ -6,6 +6,7 @@ type PropsType = {
     callback: (value: string) => void
 }
 export const EditableSpan = memo((props: PropsType) => {
+    console.log('Editable Span is called')
 
     const [edit, setEdit] = useState(false);
     const [value, setValue] = useState(props.value);

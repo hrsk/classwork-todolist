@@ -4,9 +4,10 @@ import {InputWithButton} from "./input_with_button/InputWithButton";
 import {EditableSpan} from "./editable_span/EditableSpan";
 import {useSelector} from "react-redux";
 import {AppStateType} from "./state/store";
-import {Button, Checkbox} from "@mui/material";
+import {Button} from "@mui/material";
 import {Delete} from '@mui/icons-material'
 import {IconButton} from '@mui/material'
+import {Task} from "./Task";
 
 type PropsType = {
     todolistId: string
@@ -27,13 +28,6 @@ export const Todolist = memo((props: PropsType) => {
     const tasks = useSelector<AppStateType, TasksType>(state => state.tasksReducer)
     const [value, setValue] = useState<string>('')
 
-    const removeTask = (taskId: string) => {
-        props.removeTask(props.todolistId, taskId)
-    }
-    const changeTaskStatus = useCallback((taskId: string, isDone: boolean) => {
-        props.changeTaskStatus(props.todolistId, taskId, isDone)
-    }, [props.changeTaskStatus, props.todolistId])
-
     const changeTaskFilter = useCallback((filter: FilterValuesType) => {
         props.changeFilter(props.todolistId, filter)
     }, [props.changeFilter, props.todolistId])
@@ -48,10 +42,6 @@ export const Todolist = memo((props: PropsType) => {
     const removeTodolist = () => {
         props.removeTodolist(props.todolistId)
     }
-
-    const changeTaskTitleCallbackHandler = useCallback((taskId: string, value: string) => {
-        props.changeTaskTitle(props.todolistId, taskId, value)
-    }, [props.changeTaskTitle, props.todolistId, value])
 
     const changeTodolistTitleCallbackHandler = useCallback((value: string) => {
         props.changeTodolistTitle(props.todolistId, value)
@@ -77,19 +67,15 @@ export const Todolist = memo((props: PropsType) => {
             <InputWithButton value={value} setValue={setValue} callbackButtonHandler={addTask} name={'+'}/>
             <ul style={{listStyle: 'none'}}>
                 {
-                    filteredTasks.map(task => {
-                            return (
-                                <li key={task.id}>
-                                    <IconButton onClick={() => removeTask(task.id)}>
-                                        <Delete/>
-                                    </IconButton>
-                                    <Checkbox checked={task.isDone}
-                                              onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}/>
-                                    <EditableSpan value={task.title}
-                                                  callback={(value) => changeTaskTitleCallbackHandler(task.id, value)}/>
-                                </li>
-                            )
-                        }
+                    filteredTasks.map(task => <Task
+                            task={task}
+                            key={task.id}
+                            todolistId={props.todolistId}
+                            removeTask={props.removeTask}
+                            changeTaskStatus={props.changeTaskStatus}
+                            changeTaskTitle={props.changeTaskTitle}
+                            value={value}
+                        />
                     )
                 }
             </ul>
