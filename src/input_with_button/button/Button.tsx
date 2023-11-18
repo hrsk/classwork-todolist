@@ -1,6 +1,6 @@
 import {AddBox} from "@mui/icons-material"
 import {IconButton} from "@mui/material"
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 
 type PropsType = {
     name: string
@@ -8,7 +8,7 @@ type PropsType = {
     callback: () => void
     setError: (error: string) => void
 }
-export const ButtonComponent = (props: PropsType) => {
+export const ButtonComponent = memo((props: PropsType) => {
 
     const onClickHandler = useCallback(() => {
         if (props.value.trim() !== '') {
@@ -24,4 +24,4 @@ export const ButtonComponent = (props: PropsType) => {
             <AddBox/>
         </IconButton>
     )
-}
+})

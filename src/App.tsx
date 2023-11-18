@@ -18,7 +18,7 @@ import {Container, Grid, Paper} from '@mui/material';
 export const App = memo(() => {
     console.log('App is called')
 
-    const [value, setValue] = useState<string>('');
+    // const [value, setValue] = useState<string>('');
 
     const lists = useSelector<AppStateType, TodolistType[]>(state => state.todolistReducer)
     const dispatch = useDispatch();
@@ -43,9 +43,9 @@ export const App = memo(() => {
         dispatch(addTodolistAC(value))
     }, [])
 
-    const addTodolistCallback = () => {
+    const addTodolistCallback = (value: string) => {
         addTodolist(value)
-        setValue('')
+        // setValue('')
     }
 
     const removeTodolist = useCallback((todolistId: string) => {
@@ -66,9 +66,7 @@ export const App = memo(() => {
             <div className="App">
                 <Container fixed>
                     <Grid container>
-                        <InputWithButton value={value}
-                                         setValue={setValue}
-                                         callbackButtonHandler={addTodolistCallback}
+                        <InputWithButton callbackHandler={(value: string) => addTodolistCallback(value)}
                                          name={'+'}
                         />
                     </Grid>

@@ -26,18 +26,18 @@ export const Todolist = memo((props: PropsType) => {
     console.log('Todolist is called')
 
     const tasks = useSelector<AppStateType, TasksType>(state => state.tasksReducer)
-    const [value, setValue] = useState<string>('')
+    // const [value, setValue] = useState<string>('')
 
     const changeTaskFilter = useCallback((filter: FilterValuesType) => {
         props.changeFilter(props.todolistId, filter)
     }, [props.changeFilter, props.todolistId])
 
-    const addTask = useCallback(() => {
+    const addTask = useCallback((value: string) => {
         if (value.trim() !== null) {
             props.addTask(props.todolistId, value)
-            setValue('')
+            // setValue('')
         }
-    }, [props.addTask, props.todolistId, value])
+    }, [props.addTask, props.todolistId])
 
     const removeTodolist = () => {
         props.removeTodolist(props.todolistId)
@@ -45,7 +45,7 @@ export const Todolist = memo((props: PropsType) => {
 
     const changeTodolistTitleCallbackHandler = useCallback((value: string) => {
         props.changeTodolistTitle(props.todolistId, value)
-    }, [props.changeTodolistTitle, props.todolistId, value])
+    }, [props.changeTodolistTitle, props.todolistId])
 
     let filteredTasks = tasks[props.todolistId];
 
@@ -59,12 +59,12 @@ export const Todolist = memo((props: PropsType) => {
     return (
         <div>
             <h3>
-                <EditableSpan value={props.title} callback={changeTodolistTitleCallbackHandler}/>
+                <EditableSpan value={props.title} callback={(value: string) => changeTodolistTitleCallbackHandler(value)}/>
                 <IconButton onClick={removeTodolist}>
                     <Delete/>
                 </IconButton>
             </h3>
-            <InputWithButton value={value} setValue={setValue} callbackButtonHandler={addTask} name={'+'}/>
+            <InputWithButton callbackHandler={(value: string) => addTask(value)} name={'+'} />
             <ul style={{listStyle: 'none'}}>
                 {
                     filteredTasks.map(task => <Task
@@ -74,7 +74,7 @@ export const Todolist = memo((props: PropsType) => {
                             removeTask={props.removeTask}
                             changeTaskStatus={props.changeTaskStatus}
                             changeTaskTitle={props.changeTaskTitle}
-                            value={value}
+                            // value={value}
                         />
                     )
                 }
