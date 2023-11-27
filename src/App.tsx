@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {FilterValuesType, TodolistType} from "./index";
@@ -12,8 +12,8 @@ import {
 } from "./state/reducers/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./state/store";
-import {ButtonAppBar} from "./AppBarComponent";
 import {Container, Grid, Paper} from '@mui/material';
+import DrawerAppBar from "./ResponsiveAppbar";
 
 export const App = memo(() => {
     console.log('App is called')
@@ -62,7 +62,7 @@ export const App = memo(() => {
 
     return (
         <>
-            <ButtonAppBar/>
+            <DrawerAppBar/>
             <div className="App">
                 <Container fixed>
                     <Grid container>

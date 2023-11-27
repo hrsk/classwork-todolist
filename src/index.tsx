@@ -5,6 +5,7 @@ import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./state/store";
+import {BrowserRouter} from 'react-router-dom';
 
 export type TaskType = {
     id: string
@@ -26,9 +27,11 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
 );
 
 // If you want to start measuring performance in your app, pass a function
