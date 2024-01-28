@@ -33,7 +33,7 @@ export const InputWithButton = memo((props: PropsType) => {
             setError("Invalid input value!");
         }
     };
-    
+
     const onClickHandler = () => {
         addItem();
     };

@@ -1,8 +1,8 @@
-import { Checkbox, IconButton } from "@mui/material";
-import { TaskType } from ".";
 import { Delete } from "@mui/icons-material";
-import { EditableSpan } from "./editable_span/EditableSpan";
+import { Checkbox, IconButton } from "@mui/material";
 import { memo } from "react";
+import { TaskType } from ".";
+import { EditableSpan } from "./editable_span/EditableSpan";
 
 type PropsType = {
     task: TaskType;

@@ -20,8 +20,6 @@ import {
 } from "./state/reducers/todolist-reducer";
 
 export const App = memo(() => {
-    console.log("App is called");
-
     const dispatch = useDispatch();
 
     const removeTask = useCallback(

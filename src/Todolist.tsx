@@ -28,12 +28,6 @@ type PropsType = {
     changeTodolistTitle: (todolistId: string, value: string) => void;
 };
 export const Todolist = memo((props: PropsType) => {
-    console.log("Todolist is called");
-
-    // const tasks = useSelector<AppStateType, Array<TaskType>>(
-    //     (state) => state.tasksReducer[props.todolistId]
-    // );
-
     const changeTaskFilter = useCallback(
         (filter: FilterValuesType) => {
             props.changeFilter(props.todolistId, filter);
@@ -59,15 +53,6 @@ export const Todolist = memo((props: PropsType) => {
         [props.changeTodolistTitle]
     );
 
-    // let filteredTasks = tasks;
-
-    // if (props.filter === "Completed") {
-    //     filteredTasks = tasks.filter((task) => task.isDone);
-    // }
-    // if (props.filter === "Active") {
-    //     filteredTasks = tasks.filter((task) => !task.isDone);
-    // }
-
     return (
         <div>
             <h3>
@@ -89,18 +74,6 @@ export const Todolist = memo((props: PropsType) => {
                 changeTaskStatus={props.changeTaskStatus}
                 changeTaskTitle={props.changeTaskTitle}
             />
-            {/* <ul style={{ listStyle: "none" }}>
-                {tasks.map((task) => (
-                    <Task
-                        // task={task}
-                        key={task.id}
-                        todolistId={props.todolistId}
-                        removeTask={props.removeTask}
-                        changeTaskStatus={props.changeTaskStatus}
-                        changeTaskTitle={props.changeTaskTitle}
-                    />
-                ))}
-            </ul> */}
             <div>
                 <Button
                     variant={props.filter === "All" ? "contained" : "outlined"}
