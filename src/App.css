@@ -3,10 +3,6 @@
   display: flex;
 }
 
-.active {
-  color: cadetblue;
-}
-
-.is-done {
-  opacity: 0.5;
+.App > div {
+  margin-right: 50px;
 }
