@@ -1,15 +1,22 @@
 import './App.css';
 import { Todolist } from './Todolist';
 
+export type TaskType = {
+    id: number
+    title: string
+    isDone: boolean
+}
+export type TasksType = Array<TaskType>
+
 export const App = () => {
 
-    const tasks1 = [
+    const tasks1: TasksType = [
         { id: 1, title: 'HTML & CSS', isDone: true },
         { id: 2, title: 'JS', isDone: false },
         { id: 3, title: 'React', isDone: false },
     ];
 
-    const tasks2 = [
+    const tasks2: TasksType = [
         { id: 1, title: 'Bread', isDone: true },
         { id: 2, title: 'Milk', isDone: false },
         { id: 3, title: 'Butter', isDone: false },
