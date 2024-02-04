@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Todolist } from './Todolist';
 import { v1 } from 'uuid';
@@ -32,6 +32,9 @@ export const App = () => {
     const changeTasksFilter = (value: FilterValuesType) => {
         setFilter(value);
     }
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
+        setTasks(tasks.map(task => task.id === taskId ? { ...task, isDone } : task))
+    }
 
     let filteredTasks = tasks;
     if (filter === 'Active') {
@@ -45,9 +48,11 @@ export const App = () => {
         <div className="App">
             <Todolist tasks={filteredTasks}
                 title={'What to learn'}
+                filter={filter}
                 addTask={addTask}
                 removeTask={removeTask}
-                changeTasksFilter={changeTasksFilter} />
+                changeTasksFilter={changeTasksFilter}
+                changeTaskStatus={changeTaskStatus} />
         </div>
     );
 }
