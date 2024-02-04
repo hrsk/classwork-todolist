@@ -21,13 +21,6 @@ export const App = () => {
 
     const [filter, setFilter] = useState<FilterValuesType>('All');
 
-    // const tasks2: TasksType = [
-    //     { id: 1, title: 'Bread', isDone: true },
-    //     { id: 2, title: 'Milk', isDone: false },
-    //     { id: 3, title: 'Butter', isDone: false },
-    //     { id: 4, title: 'Coca-cola', isDone: false },
-    // ];
-
     const addTask = (value: string) => {
         setTasks([{ id: v1(), title: value, isDone: false }, ...tasks])
     }
@@ -55,24 +48,6 @@ export const App = () => {
                 addTask={addTask}
                 removeTask={removeTask}
                 changeTasksFilter={changeTasksFilter} />
-            {/* <Todolist tasks={tasks2} title={'What to buy'} /> */}
-            {/* <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input />
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li><input type="checkbox" checked={true} /><span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true} /><span>JS</span></li>
-                    <li><input type="checkbox" checked={false} /><span>React</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div> */}
         </div>
     );
 }
