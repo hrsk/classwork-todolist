@@ -1,15 +1,15 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react"
-import { FilterValuesType, TasksType } from "./App"
+import { FilterValuesType, TaskType } from "./App"
 
 type PropsType = {
     todolistId: string
     title: string
-    tasks: TasksType
+    tasks: Array<TaskType>
     filter: 'All' | 'Active' | 'Completed'
-    addTask: (value: string) => void
-    removeTask: (taskId: string) => void
+    addTask: (todolistId: string, value: string) => void
+    removeTask: (todolistId: string, taskId: string) => void
     changeTasksFilter: (todolistId: string, value: FilterValuesType) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -22,7 +22,7 @@ export const Todolist = (props: PropsType) => {
     }
     const addTask = () => {
         if (value.trim() !== '') {
-            props.addTask(value.trim())
+            props.addTask(props.todolistId, value.trim())
             setValue('')
         } else {
             setError('Title is required!')
@@ -60,11 +60,11 @@ export const Todolist = (props: PropsType) => {
                     props.tasks.map((task) => {
                         return (
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <button onClick={() => props.removeTask(task.id)}>x</button>
+                                <button onClick={() => props.removeTask(props.todolistId, task.id)}>x</button>
                                 <input type="checkbox"
                                     checked={task.isDone}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                        props.changeTaskStatus(task.id, e.currentTarget.checked)
+                                        props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)
                                     }} />
                                 <span>{task.title}</span>
                             </li>
