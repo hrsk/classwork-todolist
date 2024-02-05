@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { v1 } from 'uuid';
 import './App.css';
 import { Todolist } from './Todolist';
-import { v1 } from 'uuid';
 
 export type TaskType = {
     id: string

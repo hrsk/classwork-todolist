@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, KeyboardEvent } from "react"
+import { ChangeEvent, KeyboardEvent, useState } from "react"
 import { FilterValuesType, TasksType } from "./App"
 
 type PropsType = {
