@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { v1 } from 'uuid';
 import './App.css';
 import { Todolist } from './Todolist';
@@ -42,6 +42,8 @@ export const App = () => {
         ],
     });
 
+    const [value, setValue] = useState<string>('');
+
     // const [filter, setFilter] = useState<FilterValuesType>('All');
 
     const addTask = (todolistId: string, value: string) => {
@@ -67,6 +69,13 @@ export const App = () => {
         setTodolists(todolists.filter(todolist => todolist.id !== todolistId))
     }
 
+    const addTodolist = (value: string) => {
+        const todolistId = v1()
+        setTodolists([{ id: todolistId, title: value, filter: 'All' }, ...todolists])
+        setTasks({ ...tasks, [todolistId]: [] })
+        setValue('')
+    }
+
     // let filteredTasks = tasks;
     // if (filter === 'Active') {
     //     filteredTasks = tasks.filter(task => !task.isDone)
@@ -77,6 +86,10 @@ export const App = () => {
 
     return (
         <div className="App">
+            <div>
+                <input value={value} onChange={(e: ChangeEvent<HTMLInputElement>) => { setValue(e.currentTarget.value) }} />
+                <button onClick={() => addTodolist(value)}>+</button>
+            </div>
             {
                 todolists.map(todolist => {
 
