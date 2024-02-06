@@ -1,5 +1,6 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+import { ChangeEvent } from "react"
 import { FilterValuesType, TaskType } from "./App"
+import { CustomInputForm } from "./CustomInputForm"
 
 type PropsType = {
     todolistId: string
@@ -15,29 +16,31 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 
-    const [value, setValue] = useState<string>('');
-    const [error, setError] = useState<string>('');
+    // const [value, setValue] = useState<string>('');
+    // const [error, setError] = useState<string>('');
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
-    const addTask = () => {
-        if (value.trim() !== '') {
-            props.addTask(props.todolistId, value.trim())
-            setValue('')
-        } else {
-            setError('Title is required!')
-        }
+    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setValue(e.currentTarget.value)
+    // }
+
+    const addTask = (value: string) => {
+        props.addTask(props.todolistId, value)
+        // if (value.trim() !== '') {
+        //     props.addTask(props.todolistId, value.trim())
+        //     setValue('')
+        // } else {
+        //     setError('Title is required!')
+        // }
     }
 
-    const onKeyPressHandler = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            addTask()
-        }
-        if (error !== '') {
-            setError('')
-        }
-    }
+    // const onKeyPressHandler = (e: KeyboardEvent) => {
+    //     if (e.key === 'Enter') {
+    //         addTask()
+    //     }
+    //     if (error !== '') {
+    //         setError('')
+    //     }
+    // }
 
     return (
         <div>
@@ -45,7 +48,8 @@ export const Todolist = (props: PropsType) => {
                 <h3>{props.title}</h3>
                 <button style={{ width: '24px', height: '24px' }} onClick={() => props.removeTodolist(props.todolistId)}>x</button>
             </div>
-            <div>
+            <CustomInputForm callbackFn={(value: string) => addTask(value)} />
+            {/* <div>
                 <input className={error ? 'error' : 'default'}
                     value={value}
                     onChange={onChangeHandler}
@@ -58,7 +62,7 @@ export const Todolist = (props: PropsType) => {
                             style={{ display: 'block' }}>{error}</span>
                         : null
                 }
-            </div>
+            </div> */}
             <ul style={{ listStyle: 'none' }}>
                 {
                     props.tasks.map((task) => {
