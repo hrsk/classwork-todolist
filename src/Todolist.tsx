@@ -10,6 +10,7 @@ type PropsType = {
     removeTask: (todolistId: string, taskId: string) => void
     changeTasksFilter: (todolistId: string, value: FilterValuesType) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    removeTodolist: (todolistId: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -40,7 +41,10 @@ export const Todolist = (props: PropsType) => {
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <h3>{props.title}</h3>
+                <button style={{ width: '24px', height: '24px' }} onClick={() => props.removeTodolist(props.todolistId)}>x</button>
+            </div>
             <div>
                 <input className={error ? 'error' : 'default'}
                     value={value}

@@ -63,6 +63,10 @@ export const App = () => {
         setTasks({ ...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId ? { ...task, isDone } : task) })
     }
 
+    const removeTodolist = (todolistId: string) => {
+        setTodolists(todolists.filter(todolist => todolist.id !== todolistId))
+    }
+
     // let filteredTasks = tasks;
     // if (filter === 'Active') {
     //     filteredTasks = tasks.filter(task => !task.isDone)
@@ -94,7 +98,8 @@ export const App = () => {
                             addTask={addTask}
                             removeTask={removeTask}
                             changeTasksFilter={changeTasksFilter}
-                            changeTaskStatus={changeTaskStatus} />
+                            changeTaskStatus={changeTaskStatus}
+                            removeTodolist={removeTodolist} />
                     )
                 })}
             {/* <Todolist tasks={filteredTasks}
