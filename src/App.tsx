@@ -76,6 +76,14 @@ export const App = () => {
         setValue('')
     }
 
+    const changeTodolistTitle = (todolistId: string, value: string) => {
+        setTodolists(todolists.map(todolist => todolist.id === todolistId ? { ...todolist, title: value } : todolist))
+    }
+
+    const changeTaskTitle = (todolistId: string, taskId: string, value: string) => {
+        setTasks({ ...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId ? { ...task, title: value } : task) })
+    }
+
     // let filteredTasks = tasks;
     // if (filter === 'Active') {
     //     filteredTasks = tasks.filter(task => !task.isDone)
@@ -112,7 +120,9 @@ export const App = () => {
                             removeTask={removeTask}
                             changeTasksFilter={changeTasksFilter}
                             changeTaskStatus={changeTaskStatus}
-                            removeTodolist={removeTodolist} />
+                            removeTodolist={removeTodolist}
+                            changeTodolistTitle={changeTodolistTitle}
+                            changeTaskTitle={changeTaskTitle} />
                     )
                 })}
             {/* <Todolist tasks={filteredTasks}
