@@ -32,15 +32,15 @@ export const CustomInputForm = (props: PropsType) => {
 
     return (
         <div>
-            <input className={error ? 'error' : 'default'}
+            <input className={error ? 'errorBorder' : 'default'}
                 value={value}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyPressHandler} />
-            <button className={error ? 'error' : 'default'}
+            <button className={error ? 'errorBorder' : 'default'}
                 onClick={addTask}>+</button>
             {
                 error
-                    ? <span className={error ? 'error-message' : 'default'}
+                    ? <span className={error ? 'errorMessage' : 'default'}
                         style={{ display: 'block' }}>{error}</span>
                     : null
             }

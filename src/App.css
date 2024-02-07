@@ -7,15 +7,18 @@
   margin-right: 50px;
 }
 
-.is-done {
+.isDone {
   opacity: 0.5;
 }
-.active-filter {
+
+.activeFilter {
   background-color: #5ba4c9;
 }
-.error {
+
+.errorBorder {
   border: red 1px solid;
 }
-.error-message {
+
+.errorMessage {
   color: red;
 }
