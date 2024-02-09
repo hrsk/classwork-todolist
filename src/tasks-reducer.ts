@@ -27,62 +27,45 @@ export const tasksReducer = (state: TasksType, action: ActionsType | AddTodolist
     }
 }
 
-type RemoveTaskActionType = {
-    type: 'REMOVE_TASK'
-    todolistId: string
-    taskId: string
-}
-type AddTaskActionType = {
-    type: 'ADD_TASK'
-    todolistId: string
-    value: string
-}
-type ChangeTaskStatusActionType = {
-    type: 'CHANGE_TASK_STATUS'
-    todolistId: string
-    taskId: string
-    value: boolean
-}
-type ChangeTaskTitleActionType = {
-    type: 'CHANGE_TASK_TITLE'
-    todolistId: string
-    taskId: string
-    value: boolean
-}
+export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
+export type AddTaskActionType = ReturnType<typeof addTaskAC>
+export type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>
+export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
+
 type ActionsType = RemoveTaskActionType
     | AddTaskActionType
     | ChangeTaskStatusActionType
     | ChangeTaskTitleActionType;
 
-export const removeTaskAC = (todolistId: string, taskId: string): RemoveTaskActionType => {
+export const removeTaskAC = (todolistId: string, taskId: string) => {
     return {
         type: 'REMOVE_TASK',
         todolistId,
         taskId,
-    }
+    } as const
 }
 
-export const addTaskAC = (todolistId: string, value: string): AddTaskActionType => {
+export const addTaskAC = (todolistId: string, value: string) => {
     return {
         type: 'ADD_TASK',
         todolistId,
         value,
-    }
+    } as const
 }
 
-export const changeTaskStatusAC = (todolistId: string, taskId: string, value: boolean): ChangeTaskStatusActionType => {
+export const changeTaskStatusAC = (todolistId: string, taskId: string, value: boolean) => {
     return {
         type: 'CHANGE_TASK_STATUS',
         todolistId,
         taskId,
         value,
-    }
+    } as const
 }
-export const changeTaskTitleAC = (todolistId: string, taskId: string, value: boolean): ChangeTaskTitleActionType => {
+export const changeTaskTitleAC = (todolistId: string, taskId: string, value: boolean) => {
     return {
         type: 'CHANGE_TASK_TITLE',
         todolistId,
         taskId,
         value,
-    }
+    } as const
 }

@@ -11,58 +11,43 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
     }
 }
 
-export type RemoveTodolistActionType = {
-    type: 'REMOVE_TODOLIST'
-    todolistId: string
-}
-export type AddTodolistActionType = {
-    type: 'ADD_TODOLIST'
-    todolistId: string
-    value: string
-}
-export type ChangeTodolistTitleActionType = {
-    type: 'CHANGE_TODOLIST_TITLE'
-    todolistId: string
-    value: string
-}
-export type ChangeTodolistFilterActionType = {
-    type: 'CHANGE_TODOLIST_FILTER'
-    todolistId: string
-    value: string
-}
+export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
+export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
+export type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>
+export type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilterAC>
 
 type ActionsType = RemoveTodolistActionType
     | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType;
 
-export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+export const removeTodolistAC = (todolistId: string) => {
     return {
         type: 'REMOVE_TODOLIST',
         todolistId,
-    }
+    } as const
 }
 
-export const addTodolistAC = (value: string): AddTodolistActionType => {
+export const addTodolistAC = (value: string) => {
     return {
         type: 'ADD_TODOLIST',
         todolistId: v1(),
         value,
-    }
+    } as const
 }
 
-export const changeTodolistAC = (todolistId: string, value: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleAC = (todolistId: string, value: string) => {
     return {
         type: 'CHANGE_TODOLIST_TITLE',
         todolistId,
         value,
-    }
+    } as const
 }
 
-export const changeTodolistFilterAC = (todolistId: string, value: string): ChangeTodolistFilterActionType => {
+export const changeTodolistFilterAC = (todolistId: string, value: string) => {
     return {
         type: 'CHANGE_TODOLIST_FILTER',
         todolistId,
         value,
-    }
+    } as const
 }
