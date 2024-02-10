@@ -60,13 +60,13 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-    const endState = tasksReducer(startState, changeTaskTitleAC(todolistId1, '2', false))
+    const endState = tasksReducer(startState, changeTaskTitleAC(todolistId1, '2', 'not JS'))
 
     expect(endState[todolistId2].length).toBe(3)
     expect(endState[todolistId2][1].id).toBeDefined()
-    expect(endState[todolistId2][1].id).toBe('2')
-    expect(endState[todolistId2][1].title).toBe('milk')
-    expect(endState[todolistId2][1].isDone).toBe(true)
+    expect(endState[todolistId1][1].id).toBe('2')
+    expect(endState[todolistId1][1].title).toBe('not JS')
+    expect(endState[todolistId1][1].isDone).toBe(true)
 })
 
 test('new array should be added when new todolist is added', () => {
