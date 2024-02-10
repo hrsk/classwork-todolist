@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { FilterValuesType, TodolistType } from "./types"
+import { FilterValuesType, TodolistType } from "../types"
 
 type InitialStateType = Array<TodolistType>
 const initialState: InitialStateType = []

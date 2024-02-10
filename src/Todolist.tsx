@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react"
 import { FilterValuesType, TaskType } from "./types"
-import { CustomInputForm } from "./CustomInputForm"
-import { EditableSpan } from "./EditableSpan"
+import { CustomInputForm } from "./components/CustomInputForm"
+import { EditableSpan } from "./components/EditableSpan"
 
 type PropsType = {
     todolistId: string

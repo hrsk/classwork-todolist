@@ -1,7 +1,7 @@
 import { v1 } from "uuid"
 import { tasksReducer } from "./tasks-reducer"
 import { addTodolistAC, removeTodolistAC, todolistsReducer } from "./todolists-reducer"
-import { TasksType, TodolistType } from "./types"
+import { TasksType, TodolistType } from "../types"
 
 let todolistId1: string
 let todolistId2: string

@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { TasksType } from "./types"
+import { TasksType } from "../types"
 import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-reducer"
 
 type InitialStateType = TasksType
