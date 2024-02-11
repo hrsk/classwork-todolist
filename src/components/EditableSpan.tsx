@@ -42,6 +42,7 @@ export const EditableSpan = memo((props: PropsType) => {
             {
                 editMode
                     ? <input
+                        className={error ? 'errorBorder' : 'default'}
                         value={value}
                         onChange={onChangeHandler}
                         onKeyDown={onKeyPressHandler}
@@ -49,7 +50,8 @@ export const EditableSpan = memo((props: PropsType) => {
                         autoFocus />
                     : <span onDoubleClick={editModeHandler}>{value}</span>
             }
-            <span style={{ display: 'block' }}>{error && error}</span>
+            <span className={error ? 'errorMessage' : 'default'}
+                style={{ display: 'block' }}>{error && error}</span>
         </>
     )
 })

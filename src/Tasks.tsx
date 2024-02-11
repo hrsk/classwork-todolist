@@ -25,7 +25,7 @@ export const Tasks = memo((props: PropsType) => {
     }
 
     return (
-        <div>
+        <ul style={{ listStyle: 'none' }}>
             {
                 filteredTasks.map(task => {
                     return (
@@ -38,6 +38,6 @@ export const Tasks = memo((props: PropsType) => {
                     )
                 })
             }
-        </div>
+        </ul>
     )
 })
