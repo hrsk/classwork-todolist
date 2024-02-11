@@ -1,11 +1,11 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 
 type PropsType = {
     value: string
     callback: (value: string) => void
 }
 
-export const EditableSpan = (props: PropsType) => {
+export const EditableSpan = memo((props: PropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
     const [value, setValue] = useState<string>(props.value);
@@ -52,4 +52,4 @@ export const EditableSpan = (props: PropsType) => {
             <span style={{ display: 'block' }}>{error && error}</span>
         </>
     )
-}
+})

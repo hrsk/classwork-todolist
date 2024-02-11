@@ -1,9 +1,9 @@
-import { ChangeEvent, useState, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 
 type PropsType = {
     callbackFn: (value: string) => void
 }
-export const CustomInputForm = (props: PropsType) => {
+export const CustomInputForm = memo((props: PropsType) => {
 
     const [value, setValue] = useState<string>('');
     const [error, setError] = useState<string>('');
@@ -46,4 +46,4 @@ export const CustomInputForm = (props: PropsType) => {
             }
         </div>
     )
-}
+})

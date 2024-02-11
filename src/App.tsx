@@ -1,86 +1,59 @@
-import { ChangeEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
-import { Todolist } from './Todolist';
+import { Lists } from './Lists';
+import { CustomInputForm } from './components/CustomInputForm';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store/tasks-reducer';
 import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from './store/todolists-reducer';
-import { FilterValuesType, TasksType, TodolistType } from './types';
-import { AppRootStateType } from './store/store';
+import { FilterValuesType } from './types';
 
-export const App = () => {
+export const App = memo(() => {
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
     const dispatch = useDispatch()
 
-    const [value, setValue] = useState<string>('');
-
-    const addTask = (todolistId: string, value: string) => {
+    const addTask = useCallback((todolistId: string, value: string) => {
         dispatch(addTaskAC(todolistId, value))
-    }
+    }, [dispatch])
 
-    const removeTask = (todolistId: string, taskId: string) => {
+    const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskAC(todolistId, taskId));
-    }
+    }, [dispatch])
 
-    const changeTasksFilter = (todolistId: string, value: FilterValuesType) => {
+    const changeTasksFilter = useCallback((todolistId: string, value: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, value))
-    }
-    const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
+    }, [dispatch])
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(todolistId, taskId, isDone))
-    }
+    }, [dispatch])
 
-    const removeTodolist = (todolistId: string) => {
+    const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId))
-    }
+    }, [dispatch])
 
-    const addTodolist = (value: string) => {
+    const addTodolist = useCallback((value: string) => {
         dispatch(addTodolistAC(value))
-        setValue('')
-    }
+    }, [dispatch])
 
-    const changeTodolistTitle = (todolistId: string, value: string) => {
+    const changeTodolistTitle = useCallback((todolistId: string, value: string) => {
         const action = changeTodolistTitleAC(todolistId, value)
         dispatch(action)
-    }
+    }, [dispatch])
 
-    const changeTaskTitle = (todolistId: string, taskId: string, value: string) => {
+    const changeTaskTitle = useCallback((todolistId: string, taskId: string, value: string) => {
         dispatch(changeTaskTitleAC(todolistId, taskId, value))
-    }
+    }, [dispatch])
 
     return (
         <div className="App">
-            <div>
-                <input value={value} onChange={(e: ChangeEvent<HTMLInputElement>) => { setValue(e.currentTarget.value) }} />
-                <button onClick={() => addTodolist(value)}>+</button>
-            </div>
-            {
-                todolists.map(todolist => {
-
-                    let filteredTasks = tasks[todolist.id];
-                    if (todolist.filter === 'Active') {
-                        filteredTasks = tasks[todolist.id].filter(task => !task.isDone)
-                    }
-                    if (todolist.filter === 'Completed') {
-                        filteredTasks = tasks[todolist.id].filter(task => task.isDone)
-                    }
-
-                    return (
-                        <Todolist
-                            key={todolist.id}
-                            todolistId={todolist.id}
-                            tasks={filteredTasks}
-                            title={todolist.title}
-                            filter={todolist.filter}
-                            addTask={addTask}
-                            removeTask={removeTask}
-                            changeTasksFilter={changeTasksFilter}
-                            changeTaskStatus={changeTaskStatus}
-                            removeTodolist={removeTodolist}
-                            changeTodolistTitle={changeTodolistTitle}
-                            changeTaskTitle={changeTaskTitle} />
-                    )
-                })}
+            <CustomInputForm callbackFn={(value: string) => addTodolist(value)} />
+            <Lists
+                addTask={addTask}
+                removeTask={removeTask}
+                changeTasksFilter={changeTasksFilter}
+                changeTaskStatus={changeTaskStatus}
+                removeTodolist={removeTodolist}
+                changeTodolistTitle={changeTodolistTitle}
+                changeTaskTitle={changeTaskTitle} />
         </div>
     );
-}
+})
