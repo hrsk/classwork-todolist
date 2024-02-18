@@ -1,7 +1,7 @@
 import { v1 } from "uuid"
 import { tasksReducer } from "./tasks-reducer"
 import { addTodolistAC, removeTodolistAC, todolistsReducer } from "./todolists-reducer"
-import { TasksType, TodolistType } from "../types"
+import { TaskStatuses, TasksType, TodolistType } from "../types"
 
 let todolistId1: string
 let todolistId2: string
@@ -14,14 +14,14 @@ beforeEach(() => {
 
     startState = {
         [todolistId1]: [
-            { id: '1', title: 'CSS', isDone: false },
-            { id: '2', title: 'JS', isDone: true },
-            { id: '3', title: 'React', isDone: false },
+            { id: '1', title: 'CSS', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
+            { id: '2', title: 'JS', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
+            { id: '3', title: 'React', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
         ],
         [todolistId2]: [
-            { id: '1', title: 'bread', isDone: false },
-            { id: '2', title: 'milk', isDone: true },
-            { id: '3', title: 'tea', isDone: false },
+            { id: '1', title: 'bread', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
+            { id: '2', title: 'milk', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
+            { id: '3', title: 'tea', description: '', status: TaskStatuses.Completed, priority: 0, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' },
         ],
     }
 })

@@ -5,7 +5,7 @@ import { Lists } from './Lists';
 import { CustomInputForm } from './components/CustomInputForm';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store/tasks-reducer';
 import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from './store/todolists-reducer';
-import { FilterValuesType } from './types';
+import { FilterValuesType, TaskStatuses } from './types';
 
 export const App = memo(() => {
 
@@ -22,8 +22,8 @@ export const App = memo(() => {
     const changeTasksFilter = useCallback((todolistId: string, value: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, value))
     }, [dispatch])
-    const changeTaskStatus = useCallback((todolistId: string, taskId: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(todolistId, taskId, isDone))
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+        dispatch(changeTaskStatusAC(todolistId, taskId, status))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {

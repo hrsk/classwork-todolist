@@ -13,8 +13,8 @@ beforeEach(() => {
     todolistId2 = v1()
 
     startState = [
-        { id: todolistId1, title: 'What to learn', filter: 'All' },
-        { id: todolistId2, title: 'What to buy', filter: 'All' },
+        { id: todolistId1, title: 'What to learn', filter: 'All', order: 0, addedDate: '' },
+        { id: todolistId2, title: 'What to buy', filter: 'All', order: 0, addedDate: '' },
     ]
 })
 test('correct todolist should be removed', () => {

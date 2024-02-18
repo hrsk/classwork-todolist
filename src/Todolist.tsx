@@ -2,7 +2,7 @@ import { memo, useCallback } from "react"
 import { Tasks } from "./Tasks"
 import { CustomInputForm } from "./components/CustomInputForm"
 import { EditableSpan } from "./components/EditableSpan"
-import { FilterValuesType } from "./types"
+import { FilterValuesType, TaskStatuses } from "./types"
 
 type PropsType = {
     todolistId: string
@@ -11,7 +11,7 @@ type PropsType = {
     addTask: (todolistId: string, value: string) => void
     removeTask: (todolistId: string, taskId: string) => void
     changeTasksFilter: (todolistId: string, value: FilterValuesType) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (todolistId: string, value: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, value: string) => void

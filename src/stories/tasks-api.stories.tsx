@@ -67,7 +67,6 @@ export const UpdateTaskTitle = () => {
         const value: UpdateTaskModel = {
             title: 'zxczxczxc',
             description: null,
-            completed: false,
             status: 0,
             priority: 0,
             startDate: null,
