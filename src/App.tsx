@@ -1,15 +1,20 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.css';
 import { Lists } from './Lists';
 import { CustomInputForm } from './components/CustomInputForm';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store/tasks-reducer';
-import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from './store/todolists-reducer';
+import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, fetchTodolistsThunk, removeTodolistAC } from './store/todolists-reducer';
 import { FilterValuesType, TaskStatuses } from './types';
 
 export const App = memo(() => {
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(fetchTodolistsThunk)
+    }, [])
 
     const addTask = useCallback((todolistId: string, value: string) => {
         dispatch(addTaskAC(todolistId, value))
