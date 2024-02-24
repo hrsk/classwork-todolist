@@ -1,8 +1,8 @@
-import { v1 } from "uuid"
-import { TaskResponseType, TaskStatuses, TasksType } from "../types"
-import { AddTodolistActionType, GetTodolistsActionType, RemoveTodolistActionType } from "./todolists-reducer"
-import { tasksAPI } from "../api/API"
 import { Dispatch } from "redux"
+import { v1 } from "uuid"
+import { tasksAPI } from "../api/API"
+import { TaskResponseType, TaskStatuses, TasksType, UpdateTaskModel } from "../types"
+import { AddTodolistActionType, GetTodolistsActionType, RemoveTodolistActionType } from "./todolists-reducer"
 
 type InitialStateType = TasksType
 const initialState: InitialStateType = {}
@@ -22,7 +22,7 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
             ...state, [action.todolistId]: state[action.todolistId].map(task => task.id === action.taskId ? { ...task, title: action.value } : task)
         }
         case 'ADD_TODOLIST': return {
-            ...state, [action.todolistId]: []
+            ...state, [action.todolist.id]: []
         }
         case 'REMOVE_TODOLIST': {
             delete state[action.todolistId]
@@ -99,4 +99,30 @@ export const fetchTasksThunk = (todolistId: string) => (dispatch: Dispatch) => {
             const tasks = res.data.items
             dispatch(getTasksAC(todolistId, tasks))
         })
+}
+
+export const addTaskThunk = (todolistId: string, value: string) => {
+    return (dispatch: Dispatch) => {
+        tasksAPI.create(todolistId, value)
+            .then((res) => {
+                dispatch(addTaskAC(todolistId, res.data.data.item.title))
+            })
+    }
+}
+
+export const updateTaskThunk = (todolistId: string, taskId: string, value: string) => {
+    return (dispatch: Dispatch) => {
+        const updateModel: UpdateTaskModel = {
+            title: value,
+            description: null,
+            status: 0,
+            priority: 0,
+            startDate: null,
+            deadline: null,
+        }
+        tasksAPI.update(todolistId, taskId, updateModel)
+            .then(res => {
+                // dispatch(getTodolistsAC(res.data))
+            })
+    }
 }

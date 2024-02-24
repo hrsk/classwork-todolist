@@ -1,10 +1,10 @@
 import { memo, useCallback, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { Tasks } from "./Tasks"
 import { CustomInputForm } from "./components/CustomInputForm"
 import { EditableSpan } from "./components/EditableSpan"
-import { FilterValuesType, TaskStatuses } from "./types"
-import { useDispatch } from "react-redux"
 import { fetchTasksThunk } from "./store/tasks-reducer"
+import { FilterValuesType, TaskStatuses } from "./types"
 
 type PropsType = {
     todolistId: string

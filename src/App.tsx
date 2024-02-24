@@ -1,23 +1,23 @@
 import { memo, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import './App.css';
 import { Lists } from './Lists';
 import { CustomInputForm } from './components/CustomInputForm';
-import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store/tasks-reducer';
-import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, fetchTodolistsThunk, removeTodolistAC } from './store/todolists-reducer';
+import { useAppDispatch } from './store/store';
+import { addTaskThunk, changeTaskStatusAC, removeTaskAC, updateTaskThunk } from './store/tasks-reducer';
+import { addTodolistThunk, changeTodolistFilterAC, changeTodolistTitleAC, fetchTodolistsThunkCreator, removeTodolistAC } from './store/todolists-reducer';
 import { FilterValuesType, TaskStatuses } from './types';
 
 export const App = memo(() => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(fetchTodolistsThunk)
+        dispatch(fetchTodolistsThunkCreator())
     }, [])
 
     const addTask = useCallback((todolistId: string, value: string) => {
-        dispatch(addTaskAC(todolistId, value))
+        dispatch(addTaskThunk(todolistId, value))
+        // dispatch(addTaskAC(todolistId, value))
     }, [dispatch])
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
@@ -36,7 +36,8 @@ export const App = memo(() => {
     }, [dispatch])
 
     const addTodolist = useCallback((value: string) => {
-        dispatch(addTodolistAC(value))
+        dispatch(addTodolistThunk(value))
+        // dispatch(addTodolistAC(value))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((todolistId: string, value: string) => {
@@ -45,7 +46,8 @@ export const App = memo(() => {
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, value: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, value))
+        dispatch(updateTaskThunk(todolistId, taskId, value))
+        // dispatch(changeTaskTitleAC(todolistId, taskId, value))
     }, [dispatch])
 
     return (

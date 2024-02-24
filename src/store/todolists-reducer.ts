@@ -1,5 +1,4 @@
 import { Dispatch } from "redux"
-import { v1 } from "uuid"
 import { todolistAPI } from "../api/API"
 import { FilterValuesType, TodolistResponseType, TodolistType } from "../types"
 
@@ -9,7 +8,8 @@ const initialState: InitialStateType = []
 export const todolistsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'REMOVE_TODOLIST': return state.filter(todolist => todolist.id !== action.todolistId)
-        case 'ADD_TODOLIST': return [{ id: action.todolistId, title: action.value, filter: 'All', order: 0, addedDate: '' }, ...state]
+        // case 'ADD_TODOLIST': return [{ id: action.todolistId, title: action.value, filter: 'All', order: 0, addedDate: '' }, ...state]
+        case 'ADD_TODOLIST': return [{ ...action.todolist, filter: 'All' }, ...state]
         case 'CHANGE_TODOLIST_TITLE': return state.map(todolist => todolist.id === action.todolistId ? { ...todolist, title: action.value } : todolist)
         case 'CHANGE_TODOLIST_FILTER': return state.map(todolist => todolist.id === action.todolistId ? { ...todolist, filter: action.value } : todolist)
         case 'GET_TODOLISTS': {
@@ -38,11 +38,17 @@ export const removeTodolistAC = (todolistId: string) => {
     } as const
 }
 
-export const addTodolistAC = (value: string) => {
+// export const addTodolistAC = (value: string) => {
+//     return {
+//         type: 'ADD_TODOLIST',
+//         todolistId: v1(),
+//         value,
+//     } as const
+// }
+export const addTodolistAC = (todolist: TodolistResponseType) => {
     return {
         type: 'ADD_TODOLIST',
-        todolistId: v1(),
-        value,
+        todolist,
     } as const
 }
 
@@ -68,9 +74,20 @@ export const getTodolistsAC = (todolists: Array<TodolistResponseType>) => {
     } as const
 }
 
-export const fetchTodolistsThunk = (dispatch: Dispatch<ActionsType>) => {
-    todolistAPI.get()
-        .then(res => {
-            dispatch(getTodolistsAC(res.data))
-        })
+export const fetchTodolistsThunkCreator = () => {
+    return (dispatch: Dispatch) => {
+        todolistAPI.get()
+            .then(res => {
+                dispatch(getTodolistsAC(res.data))
+            })
+    }
+}
+
+export const addTodolistThunk = (value: string) => {
+    return (dispatch: Dispatch) => {
+        todolistAPI.create(value)
+            .then(res => {
+                dispatch(addTodolistAC(res.data.data.item))
+            })
+    }
 }
