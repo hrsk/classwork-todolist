@@ -1,8 +1,9 @@
 import { Dispatch } from "redux"
 import { v1 } from "uuid"
 import { tasksAPI } from "../api/API"
-import { TaskResponseType, TaskStatuses, TasksType, UpdateTaskModel } from "../types"
+import { TaskPriorities, TaskResponseType, TaskStatuses, TasksType, UpdateTaskModel } from "../types"
 import { AddTodolistActionType, GetTodolistsActionType, RemoveTodolistActionType } from "./todolists-reducer"
+import { AppRootStateType } from "./store"
 
 type InitialStateType = TasksType
 const initialState: InitialStateType = {}
@@ -13,7 +14,7 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
             ...state, [action.todolistId]: state[action.todolistId].filter(task => task.id !== action.taskId)
         }
         case 'ADD_TASK': return {
-            ...state, [action.todolistId]: [{ id: v1(), title: action.value, description: '', status: TaskStatuses.Completed, priority: 1, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' }, ...state[action.todolistId]]
+            ...state, [action.todolistId]: [{ id: v1(), title: action.value, description: '', status: TaskStatuses.New, priority: 1, startDate: '', addedDate: '', order: 0, todoListId: '', deadline: '' }, ...state[action.todolistId]]
         }
         case 'CHANGE_TASK_STATUS': return {
             ...state, [action.todolistId]: state[action.todolistId].map(task => task.id === action.taskId ? { ...task, status: action.value } : task)
@@ -110,18 +111,53 @@ export const addTaskThunk = (todolistId: string, value: string) => {
     }
 }
 
-export const updateTaskThunk = (todolistId: string, taskId: string, value: string) => {
-    return (dispatch: Dispatch) => {
+export const updateTaskTitleThunk = (todolistId: string, taskId: string, value: string) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+
+        const localState = getState()
+        const task = localState.tasks[todolistId].find(task => task.id === taskId)
+
+        if (!task) {
+            return
+        }
+
         const updateModel: UpdateTaskModel = {
             title: value,
-            description: null,
-            status: 0,
-            priority: 0,
-            startDate: null,
-            deadline: null,
+            description: task.description,
+            status: task.status,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline,
         }
         tasksAPI.update(todolistId, taskId, updateModel)
             .then(res => {
+                dispatch(changeTaskTitleAC(todolistId, taskId, value))
+                // dispatch(getTodolistsAC(res.data))
+            })
+    }
+}
+export const updateTaskStatusThunk = (todolistId: string, taskId: string, value: TaskStatuses) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+
+        const localState = getState()
+        const task = localState.tasks[todolistId].find(task => task.id === taskId)
+
+        if (!task) {
+            return
+        }
+
+        const updateModel: UpdateTaskModel = {
+            title: task.title,
+            description: task.description,
+            status: value,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline,
+        }
+
+        tasksAPI.update(todolistId, taskId, updateModel)
+            .then(res => {
+                dispatch(changeTaskStatusAC(todolistId, taskId, value))
                 // dispatch(getTodolistsAC(res.data))
             })
     }

@@ -3,7 +3,7 @@ import './App.css';
 import { Lists } from './Lists';
 import { CustomInputForm } from './components/CustomInputForm';
 import { useAppDispatch } from './store/store';
-import { addTaskThunk, changeTaskStatusAC, removeTaskAC, updateTaskThunk } from './store/tasks-reducer';
+import { addTaskThunk, changeTaskStatusAC, removeTaskAC, updateTaskStatusThunk, updateTaskTitleThunk } from './store/tasks-reducer';
 import { addTodolistThunk, changeTodolistFilterAC, changeTodolistTitleAC, fetchTodolistsThunkCreator, removeTodolistAC, removeTodolistThunk, updateTodolistThunk } from './store/todolists-reducer';
 import { FilterValuesType, TaskStatuses } from './types';
 
@@ -28,7 +28,8 @@ export const App = memo(() => {
         dispatch(changeTodolistFilterAC(todolistId, value))
     }, [dispatch])
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        dispatch(changeTaskStatusAC(todolistId, taskId, status))
+        // dispatch(changeTaskStatusAC(todolistId, taskId, status))
+        dispatch(updateTaskStatusThunk(todolistId, taskId, status))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
@@ -48,7 +49,7 @@ export const App = memo(() => {
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, value: string) => {
-        dispatch(updateTaskThunk(todolistId, taskId, value))
+        dispatch(updateTaskTitleThunk(todolistId, taskId, value))
         // dispatch(changeTaskTitleAC(todolistId, taskId, value))
     }, [dispatch])
 

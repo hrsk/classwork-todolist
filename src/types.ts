@@ -63,10 +63,10 @@ export type TaskResponseType = {
 }
 
 export type UpdateTaskModel = {
-    title: Nullable<string>
-    description: Nullable<string>
-    status: Nullable<number>
-    priority: Nullable<number>
-    startDate: Nullable<string>
-    deadline: Nullable<string>
+    title?: Nullable<string>
+    description?: Nullable<string>
+    status?: Nullable<number>
+    priority?: Nullable<number>
+    startDate?: Nullable<string>
+    deadline?: Nullable<string>
 }
