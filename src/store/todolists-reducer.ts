@@ -91,3 +91,19 @@ export const addTodolistThunk = (value: string) => {
             })
     }
 }
+export const removeTodolistThunk = (todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistAPI.delete(todolistId)
+            .then(res => {
+                dispatch(removeTodolistAC(todolistId))
+            })
+    }
+}
+export const updateTodolistThunk = (todolistId: string, value: string) => {
+    return (dispatch: Dispatch) => {
+        todolistAPI.update(todolistId, value)
+            .then(res => {
+                dispatch(changeTodolistTitleAC(todolistId, value))
+            })
+    }
+}
